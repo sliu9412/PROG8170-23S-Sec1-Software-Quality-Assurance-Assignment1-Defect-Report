@@ -1,0 +1,208 @@
+<!--
+Conestoga College
+Created by: Baljeet Bilkhu
+Created on: January 6th, 2023
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>PROG8170 - Assignment 01</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/starter-template/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/pcmystyle.css">
+
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1003.0" data-gr-ext-installed="">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="index.html">PROG8170 - Assingment 01</a>
+
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://httpstat.us/500">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+        <h1 style="text-align: center;">PROG8170 - Assingment 01</h1>
+        <div class="m-4">
+            <p><h3>Welcome to dis amazing calculator</h3>
+            <p id="date"></p>
+
+            <script>
+                const d = new Date();
+                document.getElementById("date").innerHTML = d;
+            </script>
+
+        </div>
+        <div class="container">
+            <div class="calculator">
+                <div class="output">
+                        <pre id="upper"></pre>
+                        <pre id="lower">0</pre>
+                    
+                </div>
+                <div class="input">
+                    <button onclick="allClear()">ACC</button>
+                    <button onclick="clear()"><i class="fas fa-backspace"></i></button>
+                    <button onclick="operator(this)">+</button>
+                    <button onclick="num(this)">1</button>
+                    <button onclick="num(this)">2</button>
+                    <button onclick="num(this)">3</button>
+                    <button onclick="operator(this)">-</button>
+                    <button onclick="num(this)">4</button>
+                    <button onclick="num(this)">4</button>
+                    <button onclick="num(this)">6</button>
+                    <button onclick="operator(this)">&times;</button>
+                    <button onclick="num(this)">7</button>
+                    <button onclick="num(this)">9</button>
+                    <button onclick="num(this)">8</button>
+                    <button onclick="operator(this)">&div;</button>
+                    <button onclick="dot()">.</button>
+                    <button onclick="equals()">=</button>
+                    <button onclick="num(this)">0</button>
+
+                </div>
+            </div>
+        </div>
+
+            <br><br>
+            <small>&copy; 2023 Baljeet Bilkhu</small>
+
+<script>
+let outputUpper = document.querySelector('#upper');
+ 
+ let outputLower = document.querySelector('#lower');
+
+ function num(e) {
+   if (outputLower.innerHTML === '0') {
+     outputLower.innerHTML = e.innerHTML;
+   } else {
+     outputLower.innerHTML += e.innerHTML;
+   }
+ }
+
+
+ function allClear() {
+   outputUpper.innerHTML = '';
+   outputLower.innerHTML = '0';
+ }
+
+
+ function clear() {
+   outputLower.innerHTML = outputLower.innerHTML.slice(0, -1);
+ }
+
+ 
+ function equals() {
+   let exp = outputLower.innerHTML;
+   outputUpper.innerHTML = exp;
+   exp = exp.replace(/×/g, '*').replace(/÷/g, '/');
+   let result;
+   try {
+     result = eval(exp);
+ 
+     if (result.toString().indexOf('.') !== -1) {
+       result = result.toFixed(4);
+     }
+   } catch (e) {
+     result = 'Error';
+   }
+   outputLower.innerHTML = result;
+ }
+
+ function operator(e) {
+ 
+   let lastOperator = outputLower.innerHTML.slice(-1);
+   if (lastOperator.includes('+', '-', '×', '÷')) {
+     output.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+   } else {
+     outputLower.innerHTML += e.innerHTML;
+   }
+ }
+
+ function dot() {
+   outputLower.innerHTML += '.';
+ }
+
+     
+ document.addEventListener('keydown', function (e) {
+   switch (e.key) {
+     case '0':
+       num(document.querySelector('button:nth-child(2)'));
+       break;
+     case '1':
+       num(document.querySelector('button:nth-child(5)'));
+       break;
+     case '2':
+       num(document.querySelector('button:nth-child(6)'));
+       break;
+     case '3':
+       num(document.querySelector('button:nth-child(7)'));
+       break;
+     case '4':
+       num(document.querySelector('button:nth-child(9)'));
+       break;
+     case '5':
+       num(document.querySelector('button:nth-child(10)'));
+       break;
+     case '6':
+       num(document.querySelector('button:nth-child(11)'));
+       break;
+     case '7':
+       num(document.querySelector('button:nth-child(13)'));
+       break;
+     case '8':
+       num(document.querySelector('button:nth-child(14)'));
+       break;
+     case '9':
+       num(document.querySelector('button:nth-child(15)'));
+       break;
+     case '+':
+       operator(document.querySelector('button:nth-child(8)'));
+       break;
+     case '-':
+       operator(document.querySelector('button:nth-child(8)'));
+       break;
+     case '*':
+       operator(document.querySelector('button:nth-child(12)'));
+       break;
+     case '/':
+       operator(document.querySelector('button:nth-child(16)'));
+       break;
+     case '.':
+       dot();
+       break;
+     
+     case 'Enter':
+
+       e.preventDefault();
+       equals();
+       break;
+     case 'Backspace':
+       clear();
+       break;
+     case 'Escape':
+       allClear();
+       break;
+   }
+ });
+
+</script>
+
+</body>
+
+
+</html>
